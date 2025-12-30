@@ -22,17 +22,35 @@ export default function Portfolio() {
   }, [darkMode])
 
   const skills = {
-    languages: ["C", "Java", "JavaScript", "C++", "TypeScript","python"],
-    technologies: ["Git", "MongoDB", "MySQL", "Next.js", "Node.js", "Tailwind", "PostgreSQL","React","Angular"],
+    languages: ["C", "Java", "JavaScript", "C++", "TypeScript"],
+    technologies: ["Git", "MongoDB", "MySQL", "Next.js", "Node.js", "DynamoDb","Express.js", "PostgreSQL","React","Angular"],
   }
 
+  const experience = [{
+    CompanyName:"Algo2Offer",
+     title: "Intern at Algo2Offer as Backend Developer",
+      description:
+        "Developed and optimised Spring Boot–based APIs, ensuring efficient and secure connectivity with SQL and MongoDB databases.Implemented robust API authentication and authorization mechanisms to enhance system security.Integrated multiple third-party services, including Firebase, to enable seamless communication and improve application functionality.Contributed to overall system performance and reliability through careful design of backend workflows and data operations.",
+     
+      tech: ["SpringBoot", "MongoDb","Mysql","RestAPI"],
+      tools:["Tools:","VsCode","SpringBootSuitTool","PostMan"]
+  },
+  {
+    CompanyName:"Worked as Freelancer",
+     title: "Backend Developer as Freelancer",
+      description:
+      "Developed and maintained scalable backend services using Node.js and Next.js, ensuring smooth integration with MongoDB and DynamoDB for efficient data storage and retrieval.Built real-time communication features including chat, voice calls, and video calls by integrating third-party services such as Twilio and Agora, enhancing user engagement and platform interactivity.Worked closely with frontend teams to integrate backend APIs, validating all endpoints using Postman to ensure accuracy, stability, and expected behaviour.Integrated multiple third-party platforms—such as Firebase, Twilio, Agora, and various custom APIs—to extend system capabilities and improve application functionality.",     
+      tech: ["Node.js","Next.js","DynamoDb","MongoDB","RestAPI"],
+      tools:["Tools:","Vscode","Twilio","Agora","PostMan"]
+  }
+]
   const projects = [
     {
       title: "Hotel Management System",
       description:
         "Real-time room booking with customer management and admin dashboard. Built with Angular for seamless user experience.",
      image: "/hotel.png",
-      github: "https://github.com/harshitemp/LockTrip",
+      github: "https://github.com/harshithapoojari123/LockTrip",
       live: "https://elegant-squirrel-d85f23.netlify.app/",
       tech: ["Angular", "TypeScript", "CSS"],
     },
@@ -41,8 +59,8 @@ export default function Portfolio() {
       description:
         "Modern beverage company website with hero section, product showcase, and responsive design across all devices.",
       image: "/kuber.png",
-      github: "https://github.com/harshitemp/kyara-website",
-      live: "https://harshitemp.github.io/kyara-website/#hero",
+      github: "https://github.com/harshithapoojari123/kyara-website",
+      live: "https://harshithapoojari123.github.io/kyara-website/#hero",
       tech: ["HTML", "CSS", "JavaScript"],
     },
     {
@@ -50,7 +68,7 @@ export default function Portfolio() {
       description:
         "RBAC system with different permission levels for Admin, Manager, and Employee roles with secure authentication.",
       image: "/rb.png",
-      github: "https://github.com/harshitemp/rbac",
+      github: "https://github.com/harshithapoojari123/rbac",
       live: "https://cute-pavlova-4f38da.netlify.app/signup-page",
       tech: ["React", "Node.js", "MongoDB"],
     },
@@ -59,7 +77,7 @@ export default function Portfolio() {
       description:
         "Campus placement system with drive registration, email notifications, and Excel integration for seamless management.",
       image: "/placement.jpg",
-      github: "https://github.com/harshitemp/Domainproject",
+      github: "https://github.com/harshithapoojari123/Domainproject",
       live: "#",
       tech: ["Angular", "Node.js", "MongoDB"],
     },
@@ -93,7 +111,7 @@ export default function Portfolio() {
           </motion.h1>
 
           <div className="hidden md:flex space-x-8">
-            {["Home", "About", "Skills", "Projects", "Contact"].map((item) => (
+            {["Home", "About", "Skills","Experience", "Projects", "Contact"].map((item) => (
               <motion.a
                 key={item}
                 href={`#${item.toLowerCase()}`}
@@ -127,7 +145,7 @@ export default function Portfolio() {
           exit={{ opacity: 0 }}
         >
           <div className="flex flex-col items-center justify-center h-full space-y-8">
-            {["Home", "About", "Skills", "Projects", "Contact"].map((item) => (
+            {["Home", "About", "Skills","Experience", "Projects", "Contact"].map((item) => (
               <motion.a
                 key={item}
                 href={`#${item.toLowerCase()}`}
@@ -225,7 +243,7 @@ export default function Portfolio() {
               </motion.a>
 
               <motion.a
-                href="https://github.com/harshitemp"
+                href="https://github.com/harshithapoojari"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 bg-gray-800 text-white rounded-full hover:bg-gray-900 transform hover:scale-110 transition-all duration-200"
@@ -425,6 +443,54 @@ export default function Portfolio() {
                 </CardContent>
               </Card>
             </motion.div>
+          </div>
+        </div>
+      </section>
+{/*Experience Section */}
+ <section id="experience" className="py-20 bg-gray-50 dark:bg-gray-800/50">
+        <div className="container mx-auto px-4">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">Experience</h2>
+            <p className="text-gray-600 dark:text-gray-400">Most recent work</p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {experience.map((experience, index) => (
+              <motion.div
+                key={experience.title}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <CardContent className="p-6">
+                    <h3 className="text-xl font-bold mb-3">{experience.title}</h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">{experience.description}</p>
+
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {experience.tech.map((technical) => (
+                        <Badge key={technical} variant="outline" className="text-xs">
+                          {technical}
+                        </Badge>
+                      ))}
+                    </div>
+                     <div className="flex flex-wrap gap-2 mb-4">
+                      {experience.tools.map((technical) => (
+                        <Badge key={technical} variant="outline" className="text-xs">
+                          {technical}
+                        </Badge>
+                      ))}
+                    </div>
+                    </CardContent>
+                       </motion.div>
+
+            ))}
           </div>
         </div>
       </section>
@@ -642,7 +708,7 @@ export default function Portfolio() {
             >
               <h4 className="font-semibold mb-4">Quick Links</h4>
               <div className="space-y-2">
-                {["About", "Skills", "Projects", "Contact"].map((link) => (
+                {["About", "Skills","Experience" ,"Projects", "Contact"].map((link) => (
                   <motion.a
                     key={link}
                     href={`#${link.toLowerCase()}`}
@@ -664,7 +730,7 @@ export default function Portfolio() {
               <h4 className="font-semibold mb-4">Connect</h4>
               <div className="flex space-x-4">
                 <motion.a
-                  href="https://github.com/harshitemp"
+                  href="https://github.com/harshithapoojari123"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors"
