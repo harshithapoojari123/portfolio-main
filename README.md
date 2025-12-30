@@ -42,5 +42,5 @@ npm run build
 📬 Contact
 Feel free to reach out via the contact form on the site or:
 Email: harshithapoojari123@gmail.com
-GitHub:https://github.com/harshitemp/
+GitHub:https://github.com/harshithapoojari123/
 
