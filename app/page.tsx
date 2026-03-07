@@ -1,19 +1,14 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { ChevronDown, Download, ExternalLink, Github, Linkedin, Mail, MapPin, Moon, Sun, Menu, X } from "lucide-react"
+import { ChevronDown, Download, ExternalLink, Github, Linkedin, Mail, MapPin, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
 export default function Portfolio() {
-  const [darkMode, setDarkMode] = useState(true)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
-  const [roleText, setRoleText] = useState("")
-  const [roleIndex, setRoleIndex] = useState(0)
-  const [isDeleting, setIsDeleting] = useState(false)
   const { scrollYProgress } = useScroll()
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"])
 
@@ -29,43 +24,6 @@ export default function Portfolio() {
     hidden: { opacity: 0, y: 24 },
     show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
   }
-
-  const roles = ["Full Stack Developer", "Backend Engineer", "Web Developer"]
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark")
-    } else {
-      document.documentElement.classList.remove("dark")
-    }
-  }, [darkMode])
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 900)
-    return () => clearTimeout(timer)
-  }, [])
-
-  useEffect(() => {
-    const currentRole = roles[roleIndex % roles.length]
-    const speed = isDeleting ? 40 : 80
-
-    const timer = setTimeout(() => {
-      const nextText = isDeleting
-        ? currentRole.slice(0, roleText.length - 1)
-        : currentRole.slice(0, roleText.length + 1)
-
-      setRoleText(nextText)
-
-      if (!isDeleting && nextText === currentRole) {
-        setTimeout(() => setIsDeleting(true), 900)
-      } else if (isDeleting && nextText.length === 0) {
-        setIsDeleting(false)
-        setRoleIndex((prev) => (prev + 1) % roles.length)
-      }
-    }, speed)
-
-    return () => clearTimeout(timer)
-  }, [roleText, isDeleting, roleIndex, roles])
 
   const skills = {
     languages: ["Java", "C", "C++"],
@@ -147,11 +105,6 @@ export default function Portfolio() {
       github: "https://github.com/harshithapoojari123/InternNova",
       live: "#",
       tech: ["AngularJS", "Node.js", "MongoDB", "Firebase"],
-      caseStudy: {
-        problem: "Students struggled to find verified internships and companies lacked a structured hiring flow.",
-        approach: "Designed role-based dashboards with admin verification and streamlined application tracking.",
-        result: "Created a clear workflow for companies and a safer application experience for students.",
-      },
     },
     {
       title: "Hotel Management System",
@@ -161,11 +114,6 @@ export default function Portfolio() {
       github: "https://github.com/harshithapoojari123/LockTrip",
       live: "https://elegant-squirrel-d85f23.netlify.app/",
       tech: ["Angular", "TypeScript", "CSS"],
-      caseStudy: {
-        problem: "Manual booking and room tracking slowed hotel operations.",
-        approach: "Built a responsive booking flow with admin controls for room status and customer data.",
-        result: "Reduced booking friction and improved visibility for staff and guests.",
-      },
     },
     {
       title: "Kyara Beverages",
@@ -175,11 +123,6 @@ export default function Portfolio() {
       github: "https://github.com/harshithapoojari123/kyara-website",
       live: "https://harshithapoojari123.github.io/kyara-website/#hero",
       tech: ["HTML", "CSS", "JavaScript"],
-      caseStudy: {
-        problem: "Brand lacked a modern, mobile-friendly product story.",
-        approach: "Crafted a clean landing page with strong visual hierarchy and responsive layout.",
-        result: "Delivered a polished brand presence across desktop and mobile.",
-      },
     },
     {
       title: "Role-Based Access Control",
@@ -202,31 +145,7 @@ export default function Portfolio() {
   ]
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${darkMode ? "dark" : ""}`}>
-      {isLoading && (
-        <div className="fixed inset-0 z-[999] flex items-center justify-center bg-[#0F172A] text-white">
-          <div className="absolute inset-0 bg-[radial-gradient(circle,_rgba(59,130,246,0.28),_rgba(139,92,246,0.18)_35%,_transparent_70%)] anim-pulse-soft" />
-          <div className="relative flex flex-col items-center gap-6">
-            <div className="relative">
-              <div className="h-24 w-24 rounded-full bg-[conic-gradient(from_120deg,rgba(59,130,246,0.9),rgba(139,92,246,0.8),rgba(59,130,246,0.9))] p-[3px] anim-spin-slow">
-                <div className="flex h-full w-full items-center justify-center rounded-full bg-[#0F172A] text-xl font-semibold tracking-widest text-white/80 shadow-[0_0_30px_rgba(59,130,246,0.35)]">
-                  HP
-                </div>
-              </div>
-              <div className="absolute inset-0 rounded-full border border-white/10" />
-            </div>
-            <div className="text-sm uppercase tracking-[0.35em] text-slate-200/80">Preparing Portfolio...</div>
-            <div className="h-1 w-48 overflow-hidden rounded-full bg-white/10">
-              <div className="h-full w-1/2 rounded-full bg-gradient-to-r from-[#14B8A6] via-[#3B82F6] to-[#8B5CF6] anim-gradient" />
-            </div>
-            <div className="flex gap-2">
-              <span className="h-2 w-2 rounded-full bg-[#3B82F6] animate-bounce [animation-delay:-0.2s]" />
-              <span className="h-2 w-2 rounded-full bg-[#3B82F6] animate-bounce [animation-delay:-0.1s]" />
-              <span className="h-2 w-2 rounded-full bg-[#3B82F6] animate-bounce" />
-            </div>
-          </div>
-        </div>
-      )}
+    <div className="min-h-screen transition-colors duration-300 dark">
       <div className="fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-100 via-slate-50 to-slate-200 dark:from-slate-950 dark:via-[#0b0f1a] dark:to-[#141b2d]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(99,102,241,0.18),_transparent_60%)] dark:bg-[radial-gradient(circle_at_top,_rgba(99,102,241,0.25),_transparent_60%)]" />
@@ -282,10 +201,6 @@ export default function Portfolio() {
           </div>
 
           <div className="flex items-center space-x-3">
-            <Button variant="ghost" size="icon" onClick={() => setDarkMode(!darkMode)} className="rounded-full">
-              {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </Button>
-
             <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
               {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
@@ -331,7 +246,7 @@ export default function Portfolio() {
             </motion.div>
 
             <motion.h1
-              className="mt-6 text-5xl font-bold leading-tight md:text-7xl"
+              className="mt-6 text-5xl font-bold leading-tight text-white md:text-7xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
@@ -348,8 +263,7 @@ export default function Portfolio() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.45, duration: 0.8 }}
             >
-              <span className="text-white/80 dark:text-white/80"> {roleText}</span>
-              <span className="ml-1 inline-block h-5 w-0.5 bg-indigo-400 align-middle animate-pulse" />
+              Full Stack Developer
             </motion.h2>
 
             <motion.p
@@ -361,15 +275,6 @@ export default function Portfolio() {
               Full Stack Web Developer and B.Tech Computer Science student at{" "}
               <strong>Centurion University of Technology and Management</strong>, Vizianagaram. I build interactive,
               user-centered applications with strong backend foundations.
-            </motion.p>
-
-            <motion.p
-              className="mt-4 text-sm uppercase tracking-[0.28em] text-slate-500 dark:text-slate-400"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.8 }}
-            >
-              Building reliable systems with elegant interfaces
             </motion.p>
 
             <motion.div
@@ -409,7 +314,7 @@ export default function Portfolio() {
               >
                 <a href="/Harshitha-poojari-Resume.pdf" download>
                   <Download className="mr-2 h-4 w-4" />
-                  Download Resume
+                  Download CV
                 </a>
               </Button>
             </motion.div>
@@ -481,7 +386,7 @@ export default function Portfolio() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold md:text-5xl">About Me</h2>
+            <h2 className="text-4xl font-bold text-white md:text-5xl">About Me</h2>
             <p className="text-slate-600 dark:text-slate-400">Quick snapshot</p>
           </motion.div>
 
@@ -544,7 +449,7 @@ export default function Portfolio() {
               >
                 <a href="/Harshitha-poojari-Resume.pdf" download>
                   <Download className="mr-2 h-4 w-4" />
-                  Download Resume
+                  Download CV
                 </a>
               </Button>
             </motion.div>
@@ -567,7 +472,7 @@ export default function Portfolio() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold md:text-5xl">Skills</h2>
+            <h2 className="text-4xl font-bold text-white md:text-5xl">Skills</h2>
             <p className="text-slate-600 dark:text-slate-400">Technical toolkit</p>
           </motion.div>
 
@@ -631,21 +536,6 @@ export default function Portfolio() {
             </motion.div>
           </motion.div>
 
-          <motion.div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" variants={staggerContainer}>
-            {["Next.js", "Node.js", "Spring Boot", "Angular", "MongoDB", "AWS"].map((item) => (
-              <motion.div
-                key={item}
-                variants={fadeUp}
-                className="flex items-center gap-3 rounded-2xl border border-slate-200/70 bg-white/80 px-4 py-3 shadow-lg dark:border-slate-700/80 dark:bg-slate-800/80"
-              >
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-500/15 text-indigo-300">
-                  <span className="text-sm font-semibold">{item.slice(0, 2).toUpperCase()}</span>
-                </div>
-                <div className="text-sm font-medium text-slate-700 dark:text-slate-200">{item}</div>
-              </motion.div>
-            ))}
-          </motion.div>
-
           <motion.div className="mt-10" variants={fadeUp}>
             <Card className="border border-slate-200/70 bg-white/80 p-6 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl dark:border-slate-700/80 dark:bg-slate-800/80">
               <CardContent>
@@ -696,7 +586,7 @@ export default function Portfolio() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold md:text-5xl">Education</h2>
+            <h2 className="text-4xl font-bold text-white md:text-5xl">Education</h2>
             <p className="text-slate-600 dark:text-slate-400">Academic foundation</p>
           </motion.div>
 
@@ -740,7 +630,7 @@ export default function Portfolio() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold md:text-5xl">Certifications</h2>
+            <h2 className="text-4xl font-bold text-white md:text-5xl">Certifications</h2>
             <p className="text-slate-600 dark:text-slate-400">Credentials and learning</p>
           </motion.div>
 
@@ -775,7 +665,7 @@ export default function Portfolio() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold md:text-5xl">Experience</h2>
+            <h2 className="text-4xl font-bold text-white md:text-5xl">Experience</h2>
             <p className="text-slate-600 dark:text-slate-400">Recent roles and impact</p>
           </motion.div>
 
@@ -835,7 +725,7 @@ export default function Portfolio() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold md:text-5xl">Career Timeline</h2>
+            <h2 className="text-4xl font-bold text-white md:text-5xl">Career Timeline</h2>
             <p className="text-slate-600 dark:text-slate-400">Academic and professional milestones</p>
           </motion.div>
 
@@ -881,7 +771,7 @@ export default function Portfolio() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold md:text-5xl">Projects</h2>
+            <h2 className="text-4xl font-bold text-white md:text-5xl">Projects</h2>
             <p className="text-slate-600 dark:text-slate-400">Selected work</p>
           </motion.div>
 
@@ -905,23 +795,6 @@ export default function Portfolio() {
                   <CardContent className="p-6">
                     <h3 className="text-xl font-bold">{project.title}</h3>
                     <p className="mt-3 text-slate-600 dark:text-slate-400">{project.description}</p>
-
-                    {project.caseStudy && (
-                      <div className="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-400">
-                        <p>
-                          <span className="font-semibold text-white/80 dark:text-white/80">Problem:</span>{" "}
-                          {project.caseStudy.problem}
-                        </p>
-                        <p>
-                          <span className="font-semibold text-white/80 dark:text-white/80">Approach:</span>{" "}
-                          {project.caseStudy.approach}
-                        </p>
-                        <p>
-                          <span className="font-semibold text-white/80 dark:text-white/80">Result:</span>{" "}
-                          {project.caseStudy.result}
-                        </p>
-                      </div>
-                    )}
 
                     <div className="mt-4 flex flex-wrap gap-2">
                       {project.tech.map((tech) => (
@@ -980,7 +853,7 @@ export default function Portfolio() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold md:text-5xl">Contact Me</h2>
+            <h2 className="text-4xl font-bold text-white md:text-5xl">Contact Me</h2>
             <p className="text-slate-600 dark:text-slate-400">Let&apos;s build something great</p>
           </motion.div>
 
@@ -1002,7 +875,7 @@ export default function Portfolio() {
                     <Mail className="h-6 w-6 text-indigo-600 dark:text-indigo-300" />
                   </div>
                   <div>
-                    <h3 className="font-semibold">Email</h3>
+                    <h3 className="font-semibold text-white">Email</h3>
                     <p className="text-slate-600 dark:text-slate-400">harshithapoojari123@gmail.com</p>
                   </div>
                 </motion.a>
@@ -1015,7 +888,7 @@ export default function Portfolio() {
                     <MapPin className="h-6 w-6 text-purple-600 dark:text-purple-300" />
                   </div>
                   <div>
-                    <h3 className="font-semibold">Location</h3>
+                    <h3 className="font-semibold text-white">Location</h3>
                     <p className="text-slate-600 dark:text-slate-400">Vizianagaram, Andhra Pradesh, India</p>
                   </div>
                 </motion.div>
