@@ -80,6 +80,12 @@
   }
 }
 
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @layer utilities {
   .anim-float {
     animation: float-slow 12s ease-in-out infinite;
@@ -102,6 +108,9 @@
   .anim-gradient {
     background-size: 200% 200%;
     animation: gradient-shift 10s ease infinite;
+  }
+  .anim-spin-slow {
+    animation: spin-slow 6s linear infinite;
   }
 }
 

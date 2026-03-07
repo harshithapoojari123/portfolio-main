@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge"
 export default function Portfolio() {
   const [darkMode, setDarkMode] = useState(true)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const { scrollYProgress } = useScroll()
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"])
 
@@ -33,6 +34,11 @@ export default function Portfolio() {
       document.documentElement.classList.remove("dark")
     }
   }, [darkMode])
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 900)
+    return () => clearTimeout(timer)
+  }, [])
 
   const skills = {
     languages: ["Java", "C", "C++"],
@@ -155,6 +161,30 @@ export default function Portfolio() {
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? "dark" : ""}`}>
+      {isLoading && (
+        <div className="fixed inset-0 z-[999] flex items-center justify-center bg-[#0F172A] text-white">
+          <div className="absolute inset-0 bg-[radial-gradient(circle,_rgba(59,130,246,0.28),_rgba(139,92,246,0.18)_35%,_transparent_70%)] anim-pulse-soft" />
+          <div className="relative flex flex-col items-center gap-6">
+            <div className="relative">
+              <div className="h-24 w-24 rounded-full bg-[conic-gradient(from_120deg,rgba(59,130,246,0.9),rgba(139,92,246,0.8),rgba(59,130,246,0.9))] p-[3px] anim-spin-slow">
+                <div className="flex h-full w-full items-center justify-center rounded-full bg-[#0F172A] text-xl font-semibold tracking-widest text-white/80 shadow-[0_0_30px_rgba(59,130,246,0.35)]">
+                  HP
+                </div>
+              </div>
+              <div className="absolute inset-0 rounded-full border border-white/10" />
+            </div>
+            <div className="text-sm uppercase tracking-[0.35em] text-slate-200/80">Preparing Portfolio...</div>
+            <div className="h-1 w-48 overflow-hidden rounded-full bg-white/10">
+              <div className="h-full w-1/2 rounded-full bg-gradient-to-r from-[#14B8A6] via-[#3B82F6] to-[#8B5CF6] anim-gradient" />
+            </div>
+            <div className="flex gap-2">
+              <span className="h-2 w-2 rounded-full bg-[#3B82F6] animate-bounce [animation-delay:-0.2s]" />
+              <span className="h-2 w-2 rounded-full bg-[#3B82F6] animate-bounce [animation-delay:-0.1s]" />
+              <span className="h-2 w-2 rounded-full bg-[#3B82F6] animate-bounce" />
+            </div>
+          </div>
+        </div>
+      )}
       <div className="fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-100 via-slate-50 to-slate-200 dark:from-slate-950 dark:via-[#0b0f1a] dark:to-[#141b2d]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(99,102,241,0.18),_transparent_60%)] dark:bg-[radial-gradient(circle_at_top,_rgba(99,102,241,0.25),_transparent_60%)]" />
