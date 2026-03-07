@@ -11,6 +11,9 @@ export default function Portfolio() {
   const [darkMode, setDarkMode] = useState(true)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [roleText, setRoleText] = useState("")
+  const [roleIndex, setRoleIndex] = useState(0)
+  const [isDeleting, setIsDeleting] = useState(false)
   const { scrollYProgress } = useScroll()
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"])
 
@@ -27,6 +30,8 @@ export default function Portfolio() {
     show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
   }
 
+  const roles = ["Full Stack Developer", "Backend Engineer", "Web Developer"]
+
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark")
@@ -39,6 +44,28 @@ export default function Portfolio() {
     const timer = setTimeout(() => setIsLoading(false), 900)
     return () => clearTimeout(timer)
   }, [])
+
+  useEffect(() => {
+    const currentRole = roles[roleIndex % roles.length]
+    const speed = isDeleting ? 40 : 80
+
+    const timer = setTimeout(() => {
+      const nextText = isDeleting
+        ? currentRole.slice(0, roleText.length - 1)
+        : currentRole.slice(0, roleText.length + 1)
+
+      setRoleText(nextText)
+
+      if (!isDeleting && nextText === currentRole) {
+        setTimeout(() => setIsDeleting(true), 900)
+      } else if (isDeleting && nextText.length === 0) {
+        setIsDeleting(false)
+        setRoleIndex((prev) => (prev + 1) % roles.length)
+      }
+    }, speed)
+
+    return () => clearTimeout(timer)
+  }, [roleText, isDeleting, roleIndex, roles])
 
   const skills = {
     languages: ["Java", "C", "C++"],
@@ -120,6 +147,11 @@ export default function Portfolio() {
       github: "https://github.com/harshithapoojari123/InternNova",
       live: "#",
       tech: ["AngularJS", "Node.js", "MongoDB", "Firebase"],
+      caseStudy: {
+        problem: "Students struggled to find verified internships and companies lacked a structured hiring flow.",
+        approach: "Designed role-based dashboards with admin verification and streamlined application tracking.",
+        result: "Created a clear workflow for companies and a safer application experience for students.",
+      },
     },
     {
       title: "Hotel Management System",
@@ -129,6 +161,11 @@ export default function Portfolio() {
       github: "https://github.com/harshithapoojari123/LockTrip",
       live: "https://elegant-squirrel-d85f23.netlify.app/",
       tech: ["Angular", "TypeScript", "CSS"],
+      caseStudy: {
+        problem: "Manual booking and room tracking slowed hotel operations.",
+        approach: "Built a responsive booking flow with admin controls for room status and customer data.",
+        result: "Reduced booking friction and improved visibility for staff and guests.",
+      },
     },
     {
       title: "Kyara Beverages",
@@ -138,6 +175,11 @@ export default function Portfolio() {
       github: "https://github.com/harshithapoojari123/kyara-website",
       live: "https://harshithapoojari123.github.io/kyara-website/#hero",
       tech: ["HTML", "CSS", "JavaScript"],
+      caseStudy: {
+        problem: "Brand lacked a modern, mobile-friendly product story.",
+        approach: "Crafted a clean landing page with strong visual hierarchy and responsive layout.",
+        result: "Delivered a polished brand presence across desktop and mobile.",
+      },
     },
     {
       title: "Role-Based Access Control",
@@ -306,7 +348,8 @@ export default function Portfolio() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.45, duration: 0.8 }}
             >
-              Full Stack Developer
+              <span className="text-white/80 dark:text-white/80"> {roleText}</span>
+              <span className="ml-1 inline-block h-5 w-0.5 bg-indigo-400 align-middle animate-pulse" />
             </motion.h2>
 
             <motion.p
@@ -318,6 +361,15 @@ export default function Portfolio() {
               Full Stack Web Developer and B.Tech Computer Science student at{" "}
               <strong>Centurion University of Technology and Management</strong>, Vizianagaram. I build interactive,
               user-centered applications with strong backend foundations.
+            </motion.p>
+
+            <motion.p
+              className="mt-4 text-sm uppercase tracking-[0.28em] text-slate-500 dark:text-slate-400"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.8 }}
+            >
+              Building reliable systems with elegant interfaces
             </motion.p>
 
             <motion.div
@@ -357,7 +409,7 @@ export default function Portfolio() {
               >
                 <a href="/Harshitha-poojari-Resume.pdf" download>
                   <Download className="mr-2 h-4 w-4" />
-                  Download CV
+                  Download Resume
                 </a>
               </Button>
             </motion.div>
@@ -492,7 +544,7 @@ export default function Portfolio() {
               >
                 <a href="/Harshitha-poojari-Resume.pdf" download>
                   <Download className="mr-2 h-4 w-4" />
-                  Download CV
+                  Download Resume
                 </a>
               </Button>
             </motion.div>
@@ -577,6 +629,21 @@ export default function Portfolio() {
                 </CardContent>
               </Card>
             </motion.div>
+          </motion.div>
+
+          <motion.div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" variants={staggerContainer}>
+            {["Next.js", "Node.js", "Spring Boot", "Angular", "MongoDB", "AWS"].map((item) => (
+              <motion.div
+                key={item}
+                variants={fadeUp}
+                className="flex items-center gap-3 rounded-2xl border border-slate-200/70 bg-white/80 px-4 py-3 shadow-lg dark:border-slate-700/80 dark:bg-slate-800/80"
+              >
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-500/15 text-indigo-300">
+                  <span className="text-sm font-semibold">{item.slice(0, 2).toUpperCase()}</span>
+                </div>
+                <div className="text-sm font-medium text-slate-700 dark:text-slate-200">{item}</div>
+              </motion.div>
+            ))}
           </motion.div>
 
           <motion.div className="mt-10" variants={fadeUp}>
@@ -838,6 +905,23 @@ export default function Portfolio() {
                   <CardContent className="p-6">
                     <h3 className="text-xl font-bold">{project.title}</h3>
                     <p className="mt-3 text-slate-600 dark:text-slate-400">{project.description}</p>
+
+                    {project.caseStudy && (
+                      <div className="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-400">
+                        <p>
+                          <span className="font-semibold text-white/80 dark:text-white/80">Problem:</span>{" "}
+                          {project.caseStudy.problem}
+                        </p>
+                        <p>
+                          <span className="font-semibold text-white/80 dark:text-white/80">Approach:</span>{" "}
+                          {project.caseStudy.approach}
+                        </p>
+                        <p>
+                          <span className="font-semibold text-white/80 dark:text-white/80">Result:</span>{" "}
+                          {project.caseStudy.result}
+                        </p>
+                      </div>
+                    )}
 
                     <div className="mt-4 flex flex-wrap gap-2">
                       {project.tech.map((tech) => (
