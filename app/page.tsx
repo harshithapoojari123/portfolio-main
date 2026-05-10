@@ -2,7 +2,8 @@
 
 import { useState } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { ChevronDown, Download, ExternalLink, Github, Linkedin, Mail, MapPin, Menu, X } from "lucide-react"
+import type { Variants } from "framer-motion"
+import { Building2, ChevronDown, Download, ExternalLink, Github, Linkedin, Mail, MapPin, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -12,7 +13,7 @@ export default function Portfolio() {
   const { scrollYProgress } = useScroll()
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"])
 
-  const staggerContainer = {
+  const staggerContainer: Variants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
@@ -20,7 +21,7 @@ export default function Portfolio() {
     },
   }
 
-  const fadeUp = {
+  const fadeUp: Variants = {
     hidden: { opacity: 0, y: 24 },
     show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
   }
@@ -55,6 +56,11 @@ export default function Portfolio() {
       description: "Optimized Spring Boot APIs and integrated authentication and Firebase.",
     },
     {
+      year: "2026",
+      title: "Founded Codexa",
+      description: "Recently started Codexa, a freelancing agency focused on web apps, backend systems, and product builds.",
+    },
+    {
       year: "May 2026",
       title: "Graduation Target",
       description: "B.Tech in Computer Science and Engineering (CGPA 9.01 till 7th sem).",
@@ -62,6 +68,18 @@ export default function Portfolio() {
   ]
 
   const experience = [
+    {
+      CompanyName: "Codexa",
+      title: "Founder",
+      period: "2026 - Present",
+      location: "Remote",
+      description:
+        "Recently started Codexa, a freelancing agency that helps clients build modern websites, full-stack applications, APIs, and product-ready digital solutions.",
+      tech: ["Next.js", "React", "Node.js", "Spring Boot", "MongoDB"],
+      tools: ["Tools:", "VS Code", "GitHub", "Postman", "Firebase"],
+      link: "https://www.linkedin.com/company/113494147/",
+      website: "https://codexa-agency.netlify.app/",
+    },
     {
       CompanyName: "Algo2Offer",
       title: "Backend Intern",
@@ -71,6 +89,8 @@ export default function Portfolio() {
         "Developed and optimized Spring Boot APIs with secure SQL and MongoDB connectivity. Implemented authentication and authorization, integrated Firebase, and improved backend workflows for reliability.",
       tech: ["Spring Boot", "MongoDB", "MySQL", "REST APIs"],
       tools: ["Tools:", "VS Code", "Spring Tool Suite", "Postman"],
+      link: "",
+      website: "",
     },
     {
       CompanyName: "Freelancer",
@@ -81,6 +101,8 @@ export default function Portfolio() {
         "Built scalable services with Node.js and Next.js. Delivered real-time chat, voice, and video with Twilio and Agora, and integrated third-party APIs for richer platform functionality.",
       tech: ["Node.js", "Next.js", "DynamoDB", "MongoDB", "REST APIs"],
       tools: ["Tools:", "VS Code", "Twilio", "Agora", "Postman"],
+      link: "",
+      website: "",
     },
   ]
 
@@ -151,11 +173,11 @@ export default function Portfolio() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(99,102,241,0.18),_transparent_60%)] dark:bg-[radial-gradient(circle_at_top,_rgba(99,102,241,0.25),_transparent_60%)]" />
         <div className="absolute -top-1/3 left-1/4 h-[70vh] w-[70vw] rounded-full bg-[conic-gradient(from_120deg,rgba(99,102,241,0.16),rgba(168,85,247,0.12),rgba(236,72,153,0.08),transparent_60%)] blur-3xl anim-aurora dark:bg-[conic-gradient(from_120deg,rgba(99,102,241,0.22),rgba(139,92,246,0.16),rgba(236,72,153,0.1),transparent_60%)]" />
 
-        <div className="absolute inset-0 opacity-40" style={{ y }}>
+        <motion.div className="absolute inset-0 opacity-40" style={{ y }}>
           <div className="absolute left-16 top-16 h-72 w-72 rounded-full bg-indigo-400/60 mix-blend-multiply blur-2xl dark:bg-indigo-600/30" />
           <div className="absolute right-16 top-48 h-72 w-72 rounded-full bg-purple-400/60 mix-blend-multiply blur-2xl dark:bg-purple-600/30" />
           <div className="absolute bottom-20 left-40 h-72 w-72 rounded-full bg-fuchsia-300/60 mix-blend-multiply blur-2xl dark:bg-fuchsia-500/25" />
-        </div>
+        </motion.div>
 
         <div className="pointer-events-none absolute -left-10 top-10 h-56 w-56 rounded-full bg-indigo-400/20 blur-3xl anim-float dark:bg-indigo-500/18" />
         <div className="pointer-events-none absolute right-10 top-32 h-72 w-72 rounded-full bg-purple-400/20 blur-3xl anim-float-slower dark:bg-purple-500/18" />
@@ -242,7 +264,7 @@ export default function Portfolio() {
               transition={{ delay: 0.2, duration: 0.8 }}
             >
               <span className="h-2 w-2 rounded-full bg-indigo-500" />
-              Open to full-stack roles and product teams
+              Founder of Codexa and open to full-stack roles
             </motion.div>
 
             <motion.h1
@@ -263,7 +285,7 @@ export default function Portfolio() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.45, duration: 0.8 }}
             >
-              Full Stack Developer
+              Full Stack Developer & Codexa Founder
             </motion.h2>
 
             <motion.p
@@ -274,7 +296,7 @@ export default function Portfolio() {
             >
               Full Stack Web Developer and B.Tech Computer Science student at{" "}
               <strong>Centurion University of Technology and Management</strong>, Vizianagaram. I build interactive,
-              user-centered applications with strong backend foundations.
+              user-centered applications with strong backend foundations, and I recently started Codexa as a freelancing agency.
             </motion.p>
 
             <motion.div
@@ -309,10 +331,22 @@ export default function Portfolio() {
               <Button
                 size="lg"
                 asChild
+                variant="outline"
+                className="border-indigo-300/80 bg-indigo-50/80 text-indigo-700 hover:bg-indigo-100 dark:border-indigo-500/40 dark:bg-indigo-950/40 dark:text-indigo-200"
+              >
+                <a href="https://codexa-agency.netlify.app/" target="_blank" rel="noopener noreferrer">
+                  <Building2 className="mr-2 h-4 w-4" />
+                  Codexa
+                </a>
+              </Button>
+
+              <Button
+                size="lg"
+                asChild
                 variant="ghost"
                 className="border border-dashed border-slate-300/60 bg-white/60 text-slate-700 hover:bg-white dark:border-slate-700/80 dark:bg-slate-900/60 dark:text-slate-200"
               >
-                <a href="/Harshitha-poojari-Resume.pdf" download>
+                <a href="/Harshitha_poojari_Resume.pdf" download>
                   <Download className="mr-2 h-4 w-4" />
                   Download CV
                 </a>
@@ -418,7 +452,8 @@ export default function Portfolio() {
               <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-400">
                 I&apos;m a Full Stack Web Developer and B.Tech Computer Science student with practical experience building
                 interactive, user-centered applications. Skilled in problem solving and collaboration, I enjoy crafting
-                clean APIs, durable data models, and smooth UI that feels fast and friendly.
+                clean APIs, durable data models, and smooth UI that feels fast and friendly. I also recently started
+                Codexa, a freelancing agency for modern web and backend product work.
               </p>
 
               <div className="mt-8 grid grid-cols-2 gap-8">
@@ -447,7 +482,7 @@ export default function Portfolio() {
                 asChild
                 className="mt-8 border-indigo-300/60 bg-white/70 text-indigo-700 hover:bg-white dark:border-indigo-500/30 dark:bg-slate-900/60 dark:text-indigo-200"
               >
-                <a href="/Harshitha-poojari-Resume.pdf" download>
+                <a href="/Harshitha_poojari_Resume.pdf" download>
                   <Download className="mr-2 h-4 w-4" />
                   Download CV
                 </a>
@@ -670,7 +705,7 @@ export default function Portfolio() {
           </motion.div>
 
           <motion.div className="grid gap-8 md:grid-cols-2" variants={staggerContainer}>
-            {experience.map((item, index) => (
+            {experience.map((item) => (
               <motion.div
                 key={item.title}
                 variants={fadeUp}
@@ -683,9 +718,40 @@ export default function Portfolio() {
                     </p>
                     <h3 className="mt-2 text-xl font-bold">{item.title}</h3>
                     <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                      {item.period} · {item.location}
+                      {item.period} - {item.location}
                     </p>
                     <p className="mt-4 text-slate-600 dark:text-slate-400">{item.description}</p>
+
+                    {(item.website || item.link) && (
+                      <div className="mt-4 flex flex-wrap gap-3">
+                        {item.website && (
+                          <Button
+                            size="sm"
+                            asChild
+                            className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700"
+                          >
+                            <a href={item.website} target="_blank" rel="noopener noreferrer">
+                              <ExternalLink className="mr-2 h-4 w-4" />
+                              Agency Site
+                            </a>
+                          </Button>
+                        )}
+
+                        {item.link && (
+                          <Button
+                            size="sm"
+                            asChild
+                            variant="outline"
+                            className="border-indigo-300/80 bg-indigo-50/80 text-indigo-700 hover:bg-indigo-100 dark:border-indigo-500/40 dark:bg-indigo-950/40 dark:text-indigo-200"
+                          >
+                            <a href={item.link} target="_blank" rel="noopener noreferrer">
+                              <Linkedin className="mr-2 h-4 w-4" />
+                              LinkedIn
+                            </a>
+                          </Button>
+                        )}
+                      </div>
+                    )}
 
                     <div className="mt-4 flex flex-wrap gap-2">
                       {item.tech.map((tech) => (
@@ -776,7 +842,7 @@ export default function Portfolio() {
           </motion.div>
 
           <motion.div className="grid gap-8 md:grid-cols-2" variants={staggerContainer}>
-            {projects.map((project, index) => (
+            {projects.map((project) => (
               <motion.div
                 key={project.title}
                 variants={fadeUp}
